@@ -1,6 +1,6 @@
 module assignment3(
 	input [17:0] SW,
-	output [4:0] LEDR
+	output [2:0] LEDR
 );
 
 	wire s0;
@@ -12,9 +12,9 @@ module assignment3(
 	wire [2:0] x;
 	wire [2:0] y;
 	
-	assign s0 = SW[17];
+	assign s0 = SW[15];
 	assign s1 = SW[16];
-	assign s2 = SW[15];
+	assign s2 = SW[17];
 	
 	assign u = SW[2:0];
 	assign v = SW[5:3];
@@ -24,9 +24,11 @@ module assignment3(
 	
 	// assign LEDR = ((~{5{s2}} & ((~{5{s1}} & ((~{5{s0}} & u) | ({5{s0}} & v))) | ({5{s1}} & ((~{5{s1}} & w) | ({5{s1}} & x))))) | ({5{s2}} & ((~{5{s0}} & w) | ({5{s0}} & x))));
 	// Assignments
-	LEDR1 = (~{5{s0}} & u) | ({5{s0}} & v);
-	LEDR2 = (~{5{s0}} & w) | ({5{s0}} & x);
-	LEDR3 = (~{5{s1}} & LEDR1) | ({5{s1}} & LEDR2);
-	LEDR5 = (~{5{s2}} & LEDR3) | ({5{s2}} & y);
+	//LEDR1 = (~{5{s0}} & u) | ({5{s0}} & v);
+	//LEDR2 = (~{5{s0}} & w) | ({5{s0}} & x);
+	//LEDR3 = (~{5{s1}} & LEDR1) | ({5{s1}} & LEDR2);
+	//LEDR5 = (~{5{s2}} & LEDR3) | ({5{s2}} & y);
+	
+	assign LEDR = (~{5{s2}} & (~{5{s1}} & (~{5{s0}} & u) | ({5{s0}} & v) ) | ({5{s1}} & (~{5{s0}} & w) | ({5{s0}} & x) ) ) | ({5{s2}} & y);
 
 endmodule
